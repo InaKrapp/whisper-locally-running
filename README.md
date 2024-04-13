@@ -36,6 +36,15 @@ Likewise, replace 'Sound recordings' in the cd command above by 'Soundaufnahmen'
 
 Once the file has started to run, the GUI (graphical user interface) should open. The GUI has been designed to be as self-explanatory as possible.
 
+## Turning the program into an .exe file
+
+Wisp is designed with the idea in mind to have a program that can be used with a graphical user interface by non-programmers. 
+With pyinstaller, it can easily be turned into an .exe file that can be opened by clicking on it. Once you have pyinstaller installed, be sure to activate the virtual environment if you have not done that already.
+  ```sh
+pyinstaller Wisp_English.py --onefile --windowed
+ ```
+Unfortunately, it is a known problem that many antivirus programs classify .exe-programs created with pyinstaller as a threat. Running the .py-file may be easier.
+
 ## Some notes of caution
 This program was developed using Python 3.11.9 on Windows 10. It has not been tested on other systems or with other Python versions, and I can not guarantee it will be compatible with Windows 11.
 
