@@ -1,5 +1,5 @@
 # whisper-locally-running
-This is a program I created to use OpenAIs Whisper model for speech-to-text-transcription. It runs locally. It includes a simple GUI and a basic recording functionality.
+This is Wisp, a program I created to use OpenAIs Whisper model for speech-to-text-transcription. It runs locally. It includes a simple GUI and a basic recording functionality.
 
 There is an English and a German version available. Their graphical user interface text is written in English and German, respectively. Furthermore, they work with different folders as default: The English version will expect the voice recordings to be in a folder named 'voice recordings', the German version expects the folder to be named 'Soundaufnahmen' instead. It will not fail if the recordings are not there, but the user will have to navigate to a different folder manually if they store their recordings in another directory. 
 
