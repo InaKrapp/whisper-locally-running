@@ -11,8 +11,7 @@ Use the windows powershell to navigate to this folder. For the folder 'voice rec
   ```sh
 cd "Documents/Sound recordings"
  ```
-Before you can run the program, you need to make sure python and the necessary dependencies are installed.
-Python can be downloaded from the internet, if you do not have it already.
+Before you can run the program, you need to make sure python and the necessary dependencies are installed. You need Python and ffmpeg if you do not have them already. They can be downloaded from the internet.
 
 Optional: Set up a virtual environment.
 To install the python packages, it is recommended that you create a virtual environment. The code below creates a virtual environment named 'wispvenv'.
