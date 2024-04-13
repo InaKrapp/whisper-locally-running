@@ -54,4 +54,5 @@ Likewise, feel free to suggest any feature that you would like to see added.
 # Related and similar projects
 
 In implementing the recorder, this project was very helpful for me: [audio-recorder-pyqt](https://github.com/dv66/audio-recorder-pyqt)
+
 Several other projects to run Whisper locally exist on Github. This project is not based on anyone of them in particular. Of the ones that I know of, [vink](https://github.com/ssciwr/vink) is probably the most similar. But it still has some differences, so it might be worth trying out both for the users to decide which one they like best. 
