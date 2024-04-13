@@ -51,4 +51,7 @@ Errors can happen to all models. However, if the speaker has a clear pronounciat
 I believe that I caught the most common errors. But this software is still in its early stage, so it is very likely I missed something. If you encounter any errors, please inform me and I will see if I can resolve them.
 Likewise, feel free to suggest any feature that you would like to see added.
 
+# Related and similar projects
 
+In implementing the recorder, this project was very helpful for me: [(https://github.com/dv66/audio-recorder-pyqt](audio-recorder-pyqt)
+Several other projects to run Whisper locally exist on Github. This project is not based on anyone of them in particular. Of the ones that I know of, [https://github.com/dv66/audio-recorder-pyqt](vink) is probably the most similar. But it still has some differences, so it might be worth trying out both for the users to decide which one they like best. 
