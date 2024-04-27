@@ -39,11 +39,11 @@ Once the file has started to run, the GUI (graphical user interface) should open
 ## Turning the program into an .exe file
 
 Wisp is designed with the idea in mind to have a program that can be used with a graphical user interface by non-programmers. 
-With pyinstaller, it can easily be turned into an .exe file that can be opened by clicking on it. Once you have pyinstaller installed, be sure to activate the virtual environment if you have not done that already.
+With pyinstaller, it can easily be turned into an .exe-file that can be opened by clicking on it. Once you have pyinstaller installed, be sure to activate the virtual environment if you have not done that already.
   ```sh
 pyinstaller Wisp_English.py --onefile --windowed
  ```
-Unfortunately, it is a known problem that many antivirus programs classify .exe-programs created with pyinstaller as a threat. Running the .py-file may be easier.
+pyinstaller will create two folders, named 'dist' and 'build', in your current directory. You will find the .exe-file in the 'dist' folder. You can run it regardless of where it is on your computer, and also distribute it to other computers, for example, copying it to and from USB flash drives.
 
 ## Some notes of caution
 This program was developed using Python 3.11.9 on Windows 10. It works with Python 3.12.3, but it has not been tested on other systems or with other Python versions, and I can not guarantee it will be compatible with Windows 11.
