@@ -115,7 +115,7 @@ class MainWindow(QWidget):
             while file.exists() == True:
                 filename = f"Sprachaufnahme_{fileindex}.wav"
                 fileindex = fileindex + 1
-                file =filepath.joinpath(filename)
+                file = Path(f"{filename}")
             # Make filename available to be displayed once the recording has finished.
             path = Path(filename)
             self.filename_edit.setText(str(path.name))
