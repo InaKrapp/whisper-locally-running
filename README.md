@@ -3,10 +3,12 @@ This is Wisp, a program I created to use OpenAIs Whisper model for speech-to-tex
 
 There is an English and a German version available. Their graphical user interface texts are written in English and German, respectively. Furthermore, they work with different folders as default: The English version will expect the voice recordings to be in a folder named 'Sound recordings', the German version expects the folder to be named 'Soundaufnahmen' instead. It will not fail if the recordings are not there, but the user will have to navigate to a different folder manually if they store their recordings in another directory. 
 
+I currently work on storing the language-specific parts of the code in a separate file.
+
 ## Getting Started
 
 ### Running the program as python file
-Download the 'Wisp_English.py' and 'requirements.txt' files and save them in the same folder on your computer. The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store them there, but it can be anywhere.
+Download the 'Wisp_English.py', 'lang.py' and 'requirements.txt' files and save them in the same folder on your computer (or clone the entire respository). The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store them there, but it can be anywhere.
 Use the windows powershell to navigate to this folder. For the folder 'Sound recordings', you can do this with the following code.
   ```sh
 cd "Documents/Sound recordings"
