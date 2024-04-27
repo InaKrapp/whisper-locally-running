@@ -291,7 +291,7 @@ class MainWindow(QWidget):
                 if dlg:
                     return
 
-        self.transcription_edit.setText(f"Transcription has been completed. \The file '{filename_stem}.txt' contains the text and can be opened with any text editor (e.g. an Office program). It can be found in the same folder as the audio file.")
+        self.transcription_edit.setText(f"Transcription has been completed. \n The file '{filename_stem}.txt' contains the text and can be opened with any text editor (e.g. an Office program). It can be found in the same folder as the audio file.")
 
 class Recorder(object):
     # A recorder class for recording audio to a WAV file. Records in mono by default
