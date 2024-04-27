@@ -60,7 +60,7 @@ Errors can happen to all models. However, if the speaker has a clear pronounciat
 I believe that I caught the most common errors. But this software is still in its early stage, so it is very likely I missed something. If you encounter any errors, please inform me and I will see if I can resolve them.
 Likewise, feel free to suggest any feature that you would like to see added. You can open an issue in this repository, or contact me by E-Mail: ina.krapp@freenet.de
 
-# Related and similar projects
+## Related and similar projects
 
 In implementing the recorder, this project was very helpful for me: [audio-recorder-pyqt](https://github.com/dv66/audio-recorder-pyqt)
 
