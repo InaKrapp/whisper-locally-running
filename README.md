@@ -32,7 +32,7 @@ Once all dependencies have been successfully installed, you can start the progra
 python3 Wisp_English.py
  ```
 If you plan to run the German version, download 'Wisp_German' instead and 
-Likewise, replace 'Sound recordings' in the cd command above by 'Soundaufnahmen'.
+likewise, replace 'Sound recordings' in the cd command above by 'Soundaufnahmen'.
 
 Once the file has started to run, the GUI (graphical user interface) should open. The GUI has been designed to be as self-explanatory as possible.
 
