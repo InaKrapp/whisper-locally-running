@@ -6,7 +6,7 @@ There is an English and a German version available. Their graphical user interfa
 ## Getting Started
 
 ### Running the program as python file
-Download the 'Wisp_German.py' and 'requirements.txt' files and save them in a subfolder of the Documents folder on your computer. The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store them there, but the subfolder can have any name.
+Download the 'Wisp_English.py' and 'requirements.txt' files and save them in a subfolder of the Documents folder on your computer. The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store them there, but the subfolder can have any name.
 Use the windows powershell to navigate to this folder. For the folder 'Sound recordings', you can do this with the following code.
   ```sh
 cd "Documents/Sound recordings"
