@@ -1,12 +1,12 @@
 # whisper-locally-running
 This is Wisp, a program I created to use OpenAIs Whisper model for speech-to-text-transcription. It runs locally. It includes a simple GUI and a basic recording functionality.
 
-There is an English and a German version available. Their graphical user interface text is written in English and German, respectively. Furthermore, they work with different folders as default: The English version will expect the voice recordings to be in a folder named 'Sound recordings', the German version expects the folder to be named 'Soundaufnahmen' instead. It will not fail if the recordings are not there, but the user will have to navigate to a different folder manually if they store their recordings in another directory. 
+There is an English and a German version available. Their graphical user interface texts are written in English and German, respectively. Furthermore, they work with different folders as default: The English version will expect the voice recordings to be in a folder named 'Sound recordings', the German version expects the folder to be named 'Soundaufnahmen' instead. It will not fail if the recordings are not there, but the user will have to navigate to a different folder manually if they store their recordings in another directory. 
 
 ## Getting Started
 
 ### Running the program as python file
-Download the 'Wisp_English.py' and 'requirements.txt' files and save them in a subfolder of the Documents folder on your computer. The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store them there, but the subfolder can have any name.
+Download the 'Wisp_English.py' and 'requirements.txt' files and save them in the same folder on your computer. The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store them there, but it can be anywhere.
 Use the windows powershell to navigate to this folder. For the folder 'Sound recordings', you can do this with the following code.
   ```sh
 cd "Documents/Sound recordings"
@@ -18,7 +18,7 @@ To install the python packages, it is recommended that you create a virtual envi
   ```sh
 python3 -m venv wispvenv
  ```
-Once it is created, you will have to activate it:
+Once it is created, you will have to activate it. On the windows powershell, you can do that with the following command:
   ```sh
 wispvenv\Scripts\Activate.ps1
  ```
@@ -46,7 +46,7 @@ pyinstaller Wisp_English.py --onefile --windowed
 Unfortunately, it is a known problem that many antivirus programs classify .exe-programs created with pyinstaller as a threat. Running the .py-file may be easier.
 
 ## Some notes of caution
-This program was developed using Python 3.11.9 on Windows 10. It has not been tested on other systems or with other Python versions, and I can not guarantee it will be compatible with Windows 11.
+This program was developed using Python 3.11.9 on Windows 10. It works with Python 3.12.3, but it has not been tested on other systems or with other Python versions, and I can not guarantee it will be compatible with Windows 11.
 
 The program allows the user to record their own voice. But it might not work with all microphones. It only supports mono recordings.
 If you'd like to use a microphone that does not work with Wisp, you can use any other software to record, and choose the files for transcription with Wisp afterwards.
@@ -58,10 +58,10 @@ The user can choose between 4 models, from a fast, but less precise one to the l
 Errors can happen to all models. However, if the speaker has a clear pronounciation and there is not much background noise, from my experience, even small and fast models perform fairly well.
 
 I believe that I caught the most common errors. But this software is still in its early stage, so it is very likely I missed something. If you encounter any errors, please inform me and I will see if I can resolve them.
-Likewise, feel free to suggest any feature that you would like to see added.
+Likewise, feel free to suggest any feature that you would like to see added. You can open an issue in this repository, or contact me by E-Mail: ina.krapp@freenet.de
 
 # Related and similar projects
 
 In implementing the recorder, this project was very helpful for me: [audio-recorder-pyqt](https://github.com/dv66/audio-recorder-pyqt)
 
-Several other projects to run Whisper locally exist on Github. This project is not based on anyone of them in particular. Of the ones that I know of, [vink](https://github.com/ssciwr/vink) is probably the most similar. But it still has some differences, so it might be worth trying out both for the users to decide which one they like best. 
+Several other projects to run Whisper locally exist on Github. This project is not based on anyone of them in particular. Of the ones that I know of, [vink](https://github.com/ssciwr/vink) is probably the most similar. But it still has some differences, so it might be worth trying out both for the users to decide which one they like best. If you are interested in live transcription, [whispered-secrets](https://github.com/john-sandall/whispered-secrets) may be interesting for you.
