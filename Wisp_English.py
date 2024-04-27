@@ -109,6 +109,7 @@ class MainWindow(QWidget):
             os.chdir(filepath)
             # Select a name to store the recording under
             filename = "voice_recording.wav"
+            file = Path(f"{filename}")
             fileindex = 2
             while file.exists() == True:
                 filename = f"voice_recording_{fileindex}.wav"
