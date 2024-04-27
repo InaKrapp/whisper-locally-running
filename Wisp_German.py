@@ -3,6 +3,7 @@ import torch
 import pyaudio
 import wave
 from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QTextEdit, QLabel, QPushButton, QGridLayout, QFileDialog, QInputDialog, QMessageBox)
+from PyQt6.QtCore import QStandardPaths
 from pathlib import Path
 from pydub import AudioSegment
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
@@ -101,12 +102,15 @@ class MainWindow(QWidget):
             # Show that recording has started:
             self.recording_edit.setText("Sprachaufnahme wurde gestartet.")
             # Change filepath to the path where the recording should be stored.
-            filepath = Path(resolve_path(Path(__file__).parent))
+            filepath = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.DocumentsLocation)
+            if not os.path.exists(filepath + '/Soundaufnahmen'):
+                os.mkdir(filepath + '/Soundaufnahmen')
+            filepath = filepath + '/Soundaufnahmen'
             os.chdir(filepath)
             # Select a name to store the recording under
             filename = "Sprachaufnahme.wav"
             # Check that file "Sprachaufnahme" does not exist yet. If it does, rename the new file to "Sprachaufnahme_2", "Sprachaufnahme_3" and so on.
-            file =filepath.joinpath(f"{filename}")
+            file = Path(f"{filename}")
             fileindex = 2
             while file.exists() == True:
                 filename = f"Sprachaufnahme_{fileindex}.wav"
@@ -141,7 +145,11 @@ class MainWindow(QWidget):
     
     def open_file_dialog(self):
         # Define where the program should look for audio files
-        filepath = Path(resolve_path(Path(__file__).parent))
+        filepath = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.DocumentsLocation)
+        if not os.path.exists(filepath + '/Soundaufnahmen'):
+            os.mkdir(filepath + '/Soundaufnahmen')
+        filepath = filepath + '/Soundaufnahmen'
+        os.chdir(filepath)
 
         # Start 'choose a file' dialog
         filenametuple = QFileDialog.getOpenFileName(
@@ -286,33 +294,8 @@ class MainWindow(QWidget):
 
         self.transcription_edit.setText(f"Transkription wurde abgeschlossen. \n Die Datei '{filename_stem}.txt' enthält den Text und kann mit einem beliebigen Texteditor (bspw. einem Office-Programm) geöffnet werden. Sie ist im selben Ordner zu finden wie die Audiodatei.")
 
-def resolve_path(path):
-    "This function navigates to 'Soundaufnahmen' folder or, if it does not exist, the 'Documents' folder to allow the user to choose an audio-file from there."
-    if getattr(sys, "frozen", False):
-        resolved_path = Path(os.path.abspath(os.path.join(sys._MEIPASS, path)))
-        target_filepath = resolved_path.parents[3].joinpath('Documents')
-        sound_targetfilepath = target_filepath.joinpath('Soundaufnahmen')
-        if sound_targetfilepath.exists() and sound_targetfilepath.is_dir():
-            target_filepath = sound_targetfilepath
-        else: 
-            os.mkdir(sound_targetfilepath)
-            target_filepath = sound_targetfilepath
-    else: 
-        resolved_path = Path(os.path.abspath(os.path.join(os.getcwd(), path)))
-        target_filepath = resolved_path.parents[1].joinpath('Documents')
-        sound_targetfilepath = target_filepath.joinpath('Soundaufnahmen')
-        if sound_targetfilepath.exists() and sound_targetfilepath.is_dir():
-            target_filepath = sound_targetfilepath
-        else:
-            os.mkdir(sound_targetfilepath)
-            target_filepath = sound_targetfilepath
-    return target_filepath
-
-# Check if this contains unnecessary code. Be careful not to delete anything important, though.
 class Recorder(object):
-    '''A recorder class for recording audio to a WAV file.
-    Records in mono by default.
-    '''
+    # A recorder class for recording audio to a WAV file. Records in mono by default.
 
     def __init__(self, channels=1, rate=44100, frames_per_buffer=1024):
         self.channels = channels
