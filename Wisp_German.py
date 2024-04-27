@@ -8,13 +8,14 @@ from pathlib import Path
 from pydub import AudioSegment
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 import os
+from lang import get_text as tx
 
 class MainWindow(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs) 
 
         # set the window title
-        self.setWindowTitle("Transkriptionssoftware Whisper:")
+        self.setWindowTitle(tx("window_title"))
         self.setGeometry(100, 100, 400, 100)
 
         # Create a layout
@@ -96,6 +97,7 @@ class MainWindow(QWidget):
 
         # show the windows
         self.show()
+
     def record_speech(self):
         "This method allows the user to record their own speech, starting and stopping a recording."
         if self.button_state == 'record':
