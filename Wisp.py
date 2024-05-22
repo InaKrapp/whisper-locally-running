@@ -6,7 +6,6 @@ from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QTextEdit, QLabel
 from PyQt6.QtCore import QStandardPaths
 from pathlib import Path
 from pydub import AudioSegment
-from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 from faster_whisper import WhisperModel
 import os
 from lang import get_text as tx
