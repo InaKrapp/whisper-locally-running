@@ -245,95 +245,49 @@ class MainWindow(QWidget):
             filename = f"{filename_stem}.mp3"
         device = "cuda:0" if torch.cuda.is_available() else "cpu"
         # Set up information needed to use Whisper
-        if translation == 1:
-            # For translation, use Whisper from Huggingface
-            # Set type of float used
-            torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
-            # Set model id to be used.
-            if accuracy == 1:
-                model_id = "openai/whisper-tiny"
-            elif accuracy == 2:
-                model_id = "openai/whisper-small"
-            elif accuracy == 3:
-                model_id = "openai/whisper-medium"
-            elif accuracy == 4:
-                model_id = "openai/whisper-large-v3"
-            # Load model
-            model = AutoModelForSpeechSeq2Seq.from_pretrained(
-                model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True
-            )
-            model.to(device)
 
-            processor = AutoProcessor.from_pretrained(model_id)
+        # If no translation is requested, use fasterWhisper
+        if accuracy == 1:
+            model_size = "tiny"
+        elif accuracy == 2:
+            model_size = "small"
+        elif accuracy == 3:
+            model_size = "medium"
+        elif accuracy == 4:
+            model_size = "large-v3"
 
-            pipe = pipeline(
-                "automatic-speech-recognition",
-                model=model,
-                tokenizer=processor.tokenizer,
-                feature_extractor=processor.feature_extractor,
-                max_new_tokens=128,
-                chunk_length_s=30,
-                batch_size=16,
-                return_timestamps=True,
-                torch_dtype=torch_dtype,
-                device=device,
-            )
-
-            filesize = Path(f'{filename}').stat().st_size
-            if filesize > 0:
-                # Start transcription and translation:
-                result = pipe(filename, generate_kwargs={"task": "translate"})
-            else: 
-                self.transcription_edit.setText(tx("No_sound_found"))
-                return
-            # Write the result to a .txt file:
-            with open(f'{filename_stem}.txt', 'w') as f:
-                try:
-                    f.write(result["text"])  # Can I show a message across several lines?
-                except UnicodeEncodeError:
-                    dlg = QMessageBox.warning(self,tx("No_sound_warning"),tx("No_sound_text"))
-                    if dlg:
-                        return
+        # Use float16 if the computer supports it
+        if torch.cuda.is_available():
+            model = WhisperModel(model_size, device=device, compute_type="float16")
         else:
-            # If no translation is requested, use fasterWhisper
-            if accuracy == 1:
-                model_size = "tiny"
-            elif accuracy == 2:
-                model_size = "small"
-            elif accuracy == 3:
-                model_size = "medium"
-            elif accuracy == 4:
-                model_size = "large-v3"
+            model = WhisperModel(model_size, device=device, compute_type="float32")
 
-            # Use float16 if the computer supports it
-            if torch.cuda.is_available():
-                model = WhisperModel(model_size, device=device, compute_type="float16")
+
+        filesize = Path(f'{filename}').stat().st_size
+        if filesize > 0:
+            if translation == 1:
+                segments, info = model.transcribe(filename, beam_size=5, task="translate") # What does a change in beam size do?
             else:
-                model = WhisperModel(model_size, device=device, compute_type="float32")
+                segments, info = model.transcribe(filename, beam_size=5)
+            # Creates a new file where the transcription will be stored:
+            f = open(f'{filename_stem}.txt', 'w')
+            f.close()
 
+            #print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+            try:
+                for segment in segments:
+                    print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
 
-            filesize = Path(f'{filename}').stat().st_size
-            if filesize > 0:
-                segments, info = model.transcribe(filename, beam_size=5) # What does a change in beam size do?
-                # Creates a new file where the transcription will be stored:
-                f = open(f'{filename_stem}.txt', 'w')
-                f.close()
+                    with open(f'{filename_stem}.txt', 'a') as f:
+                        f.write(segment.text)  # Can I show a message across several lines?
+            except UnicodeEncodeError:
+                dlg = QMessageBox.warning(self,tx("No_sound_warning"),tx("No_sound_text"))
+                if dlg:
+                    return
 
-                #print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
-                try:
-                    for segment in segments:
-                        print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-
-                        with open(f'{filename_stem}.txt', 'a') as f:
-                            f.write(segment.text)  # Can I show a message across several lines?
-                except UnicodeEncodeError:
-                    dlg = QMessageBox.warning(self,tx("No_sound_warning"),tx("No_sound_text"))
-                    if dlg:
-                        return
-
-            else: 
-                self.transcription_edit.setText(tx("No_sound_found"))
-                return
+        else: 
+            self.transcription_edit.setText(tx("No_sound_found"))
+            return
 
         self.transcription_edit.setText(f"{tx('Transcription_message_1')}'{filename_stem}.txt' {tx('Transcription_message_2')}")
 
