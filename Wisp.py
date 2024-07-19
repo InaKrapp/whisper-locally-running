@@ -1,7 +1,5 @@
 import sys
 import torch
-import pyaudio
-import wave
 from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QTextEdit, QLabel, QPushButton, QGridLayout, QFileDialog, QInputDialog, QMessageBox)
 from PyQt6.QtCore import QStandardPaths
 from pathlib import Path
@@ -9,7 +7,7 @@ from pydub import AudioSegment
 from faster_whisper import WhisperModel
 import os
 from lang import get_text as tx
-from audio import Recorder, RecordingFile
+from audio import Recorder
 
 class MainWindow(QWidget):
     def __init__(self, *args, **kwargs):
