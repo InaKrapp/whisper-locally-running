@@ -26,7 +26,7 @@ Once it is created, you will have to activate it. On the windows powershell, you
 wispvenv\Scripts\Activate.ps1
  ```
 
-Install dependencies:
+#### Install dependencies:
   ```sh
 pip install -r requirements.txt
  ```
