@@ -16,7 +16,7 @@ If you plan to run the German version replace 'Sound recordings' in the cd comma
 
 Before you can run the program, you need to make sure python and the necessary dependencies are installed. You need Python and ffmpeg if you do not have them already. They can be downloaded from the internet.
 
-####Optional: Set up a virtual environment.
+#### Optional: Set up a virtual environment.
 To install the python packages, it is recommended that you create a virtual environment. The code below creates a virtual environment named 'wispvenv'.
   ```sh
 python -m venv wispvenv
