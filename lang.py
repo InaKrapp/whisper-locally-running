@@ -57,7 +57,7 @@ TEXT_EN = {
     "No_sound_warning": "No speech detected",
     "No_sound_text": "Whisper did not recognize any words. Perhaps the background noise in the recording was too strong, or you selected a recording in which nobody said anything.",
     "Transcription_message_1": "Transcription has been completed. \n The file ",
-    "Transcription_message_2":".txt' contains the text and can be opened with any text editor (e.g. an Office program). It can be found in the same folder as the audio file."
+    "Transcription_message_2":" contains the text and can be opened with any text editor (e.g. an Office program). It can be found in the same folder as the audio file."
 
 
 
@@ -110,7 +110,7 @@ TEXT_DE = {
     "No_sound_warning": "Keine Sprache erkannt",
     "No_sound_text": "Whisper hat keine Worte erkannt. Vielleicht war das Hintergrundrauschen in der Aufnahme zu stark, oder du hast eine Aufnahme ausgewählt, in der niemand etwas gesagt hat.",
     "Transcription_message_1": "Transkription wurde abgeschlossen. \n Die Datei ",
-    "Transcription_message_2":".txt' enthält den Text und kann mit einem beliebigen Texteditor (bspw. einem Office-Programm) geöffnet werden. Sie ist im selben Ordner zu finden wie die Audiodatei."
+    "Transcription_message_2":" enthält den Text und kann mit einem beliebigen Texteditor (bspw. einem Office-Programm) geöffnet werden. Sie ist im selben Ordner zu finden wie die Audiodatei."
 
 
 }
