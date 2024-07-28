@@ -48,9 +48,13 @@ pyinstaller will create two folders, named 'dist' and 'build', in your current d
 
 ## Using diarization
 The branch 'whisper_diarization' now supports speaker recognition with the use of [whisperX](https://github.com/m-bain/whisperX) by Max Bain. 
+
 Since the model used for speaker recognition is gated, its use requires authentication of the user. This can be done by creating a huggingface account and obtaining access to the model: [Speaker-diarization-model](https://huggingface.co/pyannote/speaker-diarization-3.1).
+
 In the next step, a read token must be generated on the account: [Generate read token](https://huggingface.co/docs/transformers.js/guides/private). 
+
 Finally, the user must link the python code with the account. This can be done, for example, using the [Hugging Face Command Line Interface](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli), or by supplying the token to the python code. 
+
 The GUI with diarization capabilities can then be started with the following code:
  ```sh
 python Wisp_diarization.py
