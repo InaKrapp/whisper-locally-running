@@ -46,6 +46,15 @@ pyinstaller Wisp.py --onefile --windowed
  ```
 pyinstaller will create two folders, named 'dist' and 'build', in your current directory. You will find the .exe-file in the 'dist' folder. You can run it regardless of where it is on your computer, and also distribute it to other computers, for example, copying it to and from USB flash drives.
 
+## Using diarization
+The branch 'whisper_diarization' now supports speaker recognition with the use of [whisperX](https://github.com/m-bain/whisperX) by Max Bain. Since the model used for speaker recognition is gated, its use requires authentication of the user. This can be done by creating a huggingface account and obtaining access to the model: [Speaker-diarization-model](https://huggingface.co/pyannote/speaker-diarization-3.1) 
+In the next step, a read token must be generated on the account: [Generate read token](https://huggingface.co/docs/transformers.js/guides/private)
+Finally, the user must link the python code with the account. This can be done, for example, using the [Hugging Face Command Line Interface](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli), or by supplying the token to the python code. The GUI with diarization capabilities can then be started with the following code:
+ ```sh
+python Wisp_diarization.py
+ ```
+The diarization model is fairly large. For anyone who does not require speaker recognition, it is therefore easier to use the Wisp version without diarization capabilities.
+
 ## Some notes of caution
 This program was developed using Python 3.11.9 on Windows 10. It works with Python 3.12.3, but it has not been tested on other systems or with other Python versions, and I can not guarantee it will be compatible with Windows 11.
 
@@ -67,3 +76,4 @@ In implementing the recorder, this project was very helpful for me: [audio-recor
 
 Several other projects to run Whisper locally exist on Github. This project is not based on anyone of them in particular. Of the ones that I know of, [vink](https://github.com/ssciwr/vink) is probably the most similar. But it still has some differences, so it might be worth trying out both for the users to decide which one they like best. If you are interested in live transcription, [whispered-secrets](https://github.com/john-sandall/whispered-secrets) may be interesting for you.
 Wisp now supports the use of faster-whisper, increasing its speed considerably. Faster-whisper can be found here:  [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
+The speaker diarization functionality would not have been possible without the work of Max Bain, who created [whisperX](https://github.com/m-bain/whisperX).
