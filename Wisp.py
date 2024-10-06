@@ -10,7 +10,6 @@ import os
 from lang import get_text as tx
 from audio import Recorder
 from datetime import datetime 
-#os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 class MainWindow(QWidget):
     def __init__(self, *args, **kwargs):
