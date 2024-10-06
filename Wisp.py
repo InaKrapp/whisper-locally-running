@@ -5,9 +5,12 @@ from PyQt6.QtCore import QStandardPaths
 from pathlib import Path
 from pydub import AudioSegment
 from faster_whisper import WhisperModel
+from huggingface_hub import snapshot_download
 import os
 from lang import get_text as tx
 from audio import Recorder
+from datetime import datetime 
+#os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 class MainWindow(QWidget):
     def __init__(self, *args, **kwargs):
@@ -174,7 +177,7 @@ class MainWindow(QWidget):
     def choose_accuracy(self):
         "This method allows the user to choose how precise and fast the transcription should be."
         # Define options: Fast and imprecise, medium, slow and precise, very slow and very precise
-        items = [tx("Option_fast"), tx("Option_medium"), tx("Option_slow"), tx("Option_very_slow")]
+        items = [tx("Option_fast"), tx("Option_medium"), tx("Option_slow"), tx("Option_very_slow"), tx("Option_turbo")]
 
         # Create field to allow the user to choose
         item, ok = QInputDialog.getItem(self,  tx("Transcription_setting"), tx("Text_transcription_setting"), items, 0, False)
@@ -193,6 +196,9 @@ class MainWindow(QWidget):
             if item == tx("Option_very_slow"):
                 self.accuracy = 4
                 self.accuracy_edit.setText(tx("Setting_very_slow"))
+            if item == tx("Option_turbo"):
+                self.accuracy = 5
+                self.accuracy_edit.setText(tx("Setting_turbo"))
             
 
     def choose_translation(self):
@@ -253,6 +259,11 @@ class MainWindow(QWidget):
             model_size = "medium"
         elif accuracy == 4:
             model_size = "large-v3"
+        elif accuracy == 5:
+            repo_id = "deepdml/faster-whisper-large-v3-turbo-ct2"
+            local_dir = "faster-whisper-large-v3-turbo-ct2"
+            snapshot_download(repo_id=repo_id, local_dir=local_dir, repo_type="model")
+            model_size = "faster-whisper-large-v3-turbo-ct2" # Change to turbo
 
         # Use float16 if the computer supports it
         if torch.cuda.is_available():
@@ -262,6 +273,8 @@ class MainWindow(QWidget):
 
 
         filesize = Path(f'{filename}').stat().st_size
+        starting_time = datetime.now() 
+        print(starting_time)
         if filesize > 0:
             if translation == 1:
                 segments, info = model.transcribe(filename, beam_size=5, task="translate") # What does a change in beam size do?
@@ -275,6 +288,7 @@ class MainWindow(QWidget):
             try:
                 for segment in segments:
                     print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
+                    print("Transcription at time,", datetime.now()  - starting_time)
 
                     with open(f'{filename_stem}.txt', 'a') as f:
                         f.write(segment.text)  # Can I show a message across several lines?
@@ -282,7 +296,6 @@ class MainWindow(QWidget):
                 dlg = QMessageBox.warning(self,tx("No_sound_warning"),tx("No_sound_text"))
                 if dlg:
                     return
-
         else: 
             self.transcription_edit.setText(tx("No_sound_found"))
             return
