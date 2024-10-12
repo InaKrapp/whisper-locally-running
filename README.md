@@ -42,7 +42,7 @@ Wisp is designed with the idea in mind to have a program that can be used with a
 With pyinstaller, it can easily be turned into an .exe-file that can be opened by clicking on it. Once you have pyinstaller installed, be sure to activate the virtual environment if you have not done that already.
 Then, to create the .exe-file, run the followig code:
   ```sh
-pyinstaller Wisp.py --onefile --windowed
+pyinstaller Wisp.py --onefile
  ```
 pyinstaller will create two folders, named 'dist' and 'build', in your current directory. You will find the .exe-file in the 'dist' folder. You can run it regardless of where it is on your computer, and also distribute it to other computers, for example, copying it to and from USB flash drives.
 
