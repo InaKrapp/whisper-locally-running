@@ -34,7 +34,7 @@ TEXT_EN = {
     "Recording_message_1":"Voice recording has ended.\n The recording has been saved under the name ",
     "Recording_message_2": " in the 'Sound recordings' folder. \n You can convert it directly to text by clicking on 'Start transcription', start a new recording or select another file to transcribe.",
     "Choose_file_button":  "Choose a file",
-    "Choosen_file": "Ausgewählte Datei:",
+    "Choosen_file": "Choosen file:",
     "Option_fast":"Fastest, low precision",
     "Option_medium":"Medium speed and precision",
     "Option_slow":"Slow, high precision",
