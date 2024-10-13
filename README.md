@@ -1,5 +1,8 @@
 # whisper-locally-running
 This is Wisp, a program I created to use OpenAIs Whisper model for speech-to-text-transcription. It runs locally. It includes a simple GUI and a basic recording functionality.
+Here is a picture of how the GUI looks like:
+![A picture of the GUI](/pictures/picture1.png)
+
 Wisps user interface is in English as default. But it automatically recogizes the PC language and will show a German userface if the user is in Germany, Austria or another German-speaking region. Further translations can be easily added by modifying the lang.py-document. 
 
 The program works with language-specific folders when it stores the sound files: The English version will expect the voice recordings to be in a folder named 'Sound recordings', the German version expects the folder to be named 'Soundaufnahmen' instead. It will not fail if the recordings are not there, but the user will have to navigate to a different folder manually if they store their recordings in another directory. 
