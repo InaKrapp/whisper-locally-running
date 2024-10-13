@@ -73,6 +73,5 @@ Several other projects to run Whisper locally exist on Github. This project is n
 
 Wisp now supports the use of faster-whisper, increasing its speed considerably. Faster-whisper can be found here: [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
 
-Most recently, support of the Whisper large-v3 turbo-model for faster-whisper was added. This was enabled thanks to the conversion of the whisper-turbo-model to a CTranslate2 model on Huggingface by deepdml: [faster-whisper-turbo-model](https://huggingface.co/deepdml/faster-whisper-large-v3-turbo-ct2)
-It is generally still in an early, experimental stage. Its speed and overall accuracy look very promising (it has a better error rate than the medium and small models in most languages, while being faster than them).
+Most recently, support of the Whisper large-v3 turbo-model for faster-whisper was added. This was enabled thanks to the conversion of the whisper-turbo-model to a CTranslate2 model on Huggingface by deepdml: [faster-whisper-turbo-model](https://huggingface.co/deepdml/faster-whisper-large-v3-turbo-ct2). It is generally still in an early, experimental stage. Its speed and overall accuracy look very promising (it has a better error rate than the medium and small models in most languages, while being faster than them).
 But it is not expected to perform well in translation tasks. And it has been noticed to have a high error rate in some languages like Cantonese. More on that in the [Benchmark discussion](https://github.com/SYSTRAN/faster-whisper/issues/1030) 
