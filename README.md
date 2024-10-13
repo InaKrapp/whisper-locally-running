@@ -2,7 +2,7 @@
 This is Wisp, a program I created to use OpenAIs Whisper model for speech-to-text-transcription. It runs locally. It includes a simple GUI and a basic recording functionality.
 Here is a picture of how the GUI looks like:
 
-<img src="/pictures/picture1.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="300" height="200">
+<img src="/pictures/picture1.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="300" height="600">
 
 Wisps user interface is in English as default. But it automatically recogizes the PC language and will show a German userface if the user is in Germany, Austria or another German-speaking region. Further translations can be easily added by modifying the lang.py-document. 
 
