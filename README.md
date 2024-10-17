@@ -2,7 +2,7 @@
 This is Wisp, a program I created to use OpenAIs Whisper model for speech-to-text-transcription. It runs locally. It includes a simple GUI and a basic recording functionality.
 Here is a picture of how the GUI looks like before, during and after turning an audio file into text:
 
-<img src="/pictures/picture1.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="300" height="430"> <img src="/pictures/picture3.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="300" height="430"> <img src="/pictures/picture4.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="300" height="430">
+<img src="/pictures/picture1.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="240" height="344"> <img src="/pictures/picture3.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="240" height="344"> <img src="/pictures/picture4.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="240" height="344">
 
 Wisps user interface is in English as default. But it automatically recogizes the PC language and will show a German userface if the user is in Germany, Austria or another German-speaking region. Further translations can be easily added by modifying the lang.py-document. 
 
@@ -50,7 +50,7 @@ pyinstaller Wisp.py --onefile
  ```
 pyinstaller will create two folders, named 'dist' and 'build', in your current directory. You will find the .exe-file in the 'dist' folder. You can run it regardless of where it is on your computer, and also distribute it to other computers, for example, copying it to and from USB flash drives.
 
-## Some notes of caution
+## Compatibility and requirements of the program
 This program was developed using Python 3.11.9 on Windows 10. It works with Python 3.12.3, but it has not been tested on other systems or with other Python versions, and I can not guarantee it will be compatible with Windows 11.
 
 The program allows the user to record their own voice. But it might not work with all microphones. So far, it only supports mono recordings.
