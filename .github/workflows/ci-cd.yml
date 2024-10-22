@@ -22,8 +22,7 @@ jobs:
     strategy:
       matrix:
         # TODO: Add additional versions of the platforms you want to test on
-        # os: [ubuntu-latest, windows-latest, macos-latest]
-        os: [macos-latest, ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout repository
@@ -34,18 +33,17 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install FFmpeg on Linux
+      - name: Install dependencies using system package manager on Linux
         if: runner.os == 'Linux'
-        run: sudo apt-get install ffmpeg
+        run: sudo apt-get install ffmpeg python3-pyaudio
 
-      - name: Install FFmpeg on Windows
+      - name: Install dependencies using system package manager on Windows
         if: runner.os == 'Windows'
-        run: |
-          choco install ffmpeg
+        run: choco install ffmpeg
 
-      - name: Install FFmpeg on macOS
+      - name: Install dependencies using system package manager on macOS
         if: runner.os == 'macOS'
-        run: brew install ffmpeg
+        run: brew install ffmpeg portaudio
 
       - name: Install dependencies
         run: |
