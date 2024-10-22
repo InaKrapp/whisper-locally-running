@@ -63,22 +63,4 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Save test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: pytest-results
-          path: ./test-results
-
-  check_results:
-    needs: test
-    runs-on: ubuntu-latest 
-    steps:
-      - name: Check previous jobs' results
-        run: |
-          if [ "${{ job.status }}" != "success" ]; then
-            echo "Some jobs have failed"
-            exit 1
-          fi
-
-# TODO: add bundling and deployment steps on merging to production branch
+# TODO: add bundling and deployment on merging to production branch
