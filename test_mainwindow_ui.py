@@ -13,3 +13,5 @@ def app(qtbot):
 def test_app_starts(app):
     """Test to ensure the application starts and the main window is visible."""
     assert app.isVisible(), "Main window is not visible after startup."
+
+# TODO: add additional tests for the GUI elements
