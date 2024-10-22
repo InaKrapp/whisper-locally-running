@@ -5,7 +5,7 @@ charset-normalizer==3.3.2
 colorama==0.4.6
 coloredlogs==15.0.1
 ctranslate2==4.3.1; platform_system == "Darwin"
-ctranslate2==4.4.0; platform_system != "Darwin"
+ctranslate2==4.4.0; platform_system == "Linux" or platform_system == "Windows"
 faster-whisper==1.0.3
 filelock==3.16.1
 flatbuffers==24.3.25
@@ -16,7 +16,7 @@ idna==3.10
 iniconfig==2.0.0
 Jinja2==3.1.4
 MarkupSafe==2.1.5
-mkl==2021.4.0; platform_system != "Darwin"
+mkl==2021.4.0; platform_system == "Linux" or platform_system == "Windows"
 mpmath==1.3.0
 networkx==3.3
 numpy
@@ -41,10 +41,10 @@ PyYAML==6.0.2
 requests==2.32.3
 sympy==1.13.3
 tbb==2021.10.0; platform_system == "Darwin"
-tbb==2021.13.0; platform_system != "Darwin"
+tbb==2021.13.0; platform_system == "Linux" or platform_system == "Windows"
 tokenizers==0.20.0
 torch==2.2.2; platform_system == "Darwin"
-torch==2.4.1; platform_system != "Darwin"
+torch==2.4.1; platform_system == "Linux" or platform_system == "Windows"
 tqdm==4.66.4
 typing_extensions==4.12.2
 urllib3==2.2.2
