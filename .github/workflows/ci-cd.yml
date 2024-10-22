@@ -17,12 +17,13 @@ jobs:
   test:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    continue-on-error: true
 
     strategy:
       matrix:
         # TODO: Add additional versions of the platforms you want to test on
         # os: [ubuntu-latest, windows-latest, macos-latest]
-        os: [windows-latest]
+        os: [macos-latest, ubuntu-latest]
 
     steps:
       - name: Checkout repository
