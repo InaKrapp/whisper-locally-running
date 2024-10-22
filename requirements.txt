@@ -28,8 +28,8 @@ pluggy==1.5.0
 protobuf==5.28.2
 PyAudio==0.2.14
 pydub==0.25.1
-pyinstaller==6.10.0
 pyinstaller-hooks-contrib==2024.8
+pyinstaller==6.10.0
 PyQt6_sip==13.8.0
 PyQt6-Qt6==6.7.3
 PyQt6==6.7.1
@@ -46,5 +46,4 @@ torch==2.2.2; platform_system == "Darwin"
 torch==2.4.1; platform_system == "Linux" or platform_system == "Windows"
 tqdm==4.66.4
 typing_extensions==4.12.2
-urllib3==2.2.2
 urllib3==2.2.3
