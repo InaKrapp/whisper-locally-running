@@ -11,7 +11,7 @@ on:
       - main
 
 env:
-  PYTHON_VERSION: 3.11.9
+  PYTHON_VERSION: 3.11.9 # Github runner does not support Python 3.11.10 for Macos yet
 
 jobs:
   test:
@@ -21,6 +21,7 @@ jobs:
     strategy:
       matrix:
         include:
+          # TODO: Add more OS versions such as windows-2019, ubuntu-20.04, macos-11.0 etc.
           - os: ubuntu-latest
             arch: x64
           - os: ubuntu-latest
@@ -31,7 +32,7 @@ jobs:
             arch: arm64
           - os: macos-latest
             arch: arm64
-      fail-fast: false  # Ensure other jobs continue even if one fails
+      fail-fast: false
 
     steps:
       - name: Checkout repository
@@ -60,7 +61,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
-        continue-on-error: true  # Continue the job even if this step fails
         run: pytest
 
       - name: Save test results
@@ -70,15 +70,14 @@ jobs:
           name: pytest-results
           path: ./test-results
 
-  check_results:
-    needs: test  # Ensure this step waits for all 'test' jobs
-    runs-on: ubuntu-latest  # You can choose the platform
-    steps:
-      - name: Check previous jobs' results
-        run: |
-          if [ "${{ job.status }}" != "success" ]; then
-            echo "Some jobs have failed"
-            exit 1
-          fi
-
+  # check_results:
+  #   needs: test  # Ensure this step waits for all 'test' jobs
+  #   runs-on: ubuntu-latest  # You can choose the platform
+  #   steps:
+  #     - name: Check previous jobs' results
+  #       run: |
+  #         if [ "${{ job.status }}" != "success" ]; then
+  #           echo "Some jobs have failed"
+  #           exit 1
+  #         fi
 # TODO: add bundling and deployment steps on merging to production branch
