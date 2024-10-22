@@ -36,7 +36,7 @@ jobs:
 
       - name: Install dependencies using system package manager on Linux
         if: runner.os == 'Linux'
-        run: sudo apt-get install ffmpeg python3-pyaudio libegl1 libopengl0 libxkbcommon-x11-0 libglu1-mesa
+        run: sudo apt-get install ffmpeg python3-pyaudio libegl1 libopengl0 libxkbcommon-x11-0 libglu1-mesa libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
 
       - name: Install dependencies using system package manager on Windows
         if: runner.os == 'Windows'
