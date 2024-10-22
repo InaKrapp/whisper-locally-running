@@ -17,7 +17,6 @@ jobs:
   test:
     name: Test on ${{ matrix.os }} with ${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: true
 
     strategy:
       matrix:
@@ -26,12 +25,13 @@ jobs:
             arch: x64
           - os: ubuntu-latest
             arch: arm64
-          # - os: windows-latest
-          #   arch: x64
-          # - os: windows-latest
-          #   arch: arm64
+          - os: windows-latest
+            arch: x64
+          - os: windows-latest
+            arch: arm64
           - os: macos-latest
             arch: arm64
+      fail-fast: false  # Ensure other jobs continue even if one fails
 
     steps:
       - name: Checkout repository
@@ -60,6 +60,25 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
+        continue-on-error: true  # Continue the job even if this step fails
         run: pytest
+
+      - name: Save test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: pytest-results
+          path: ./test-results
+
+  check_results:
+    needs: test  # Ensure this step waits for all 'test' jobs
+    runs-on: ubuntu-latest  # You can choose the platform
+    steps:
+      - name: Check previous jobs' results
+        run: |
+          if [ "${{ job.status }}" != "success" ]; then
+            echo "Some jobs have failed"
+            exit 1
+          fi
 
 # TODO: add bundling and deployment steps on merging to production branch
