@@ -1,11 +1,6 @@
 name: CI/CD
 
 on:
-  push:
-    branches:
-      - main
-      - test-*
-      - feat-*
   pull_request:
     branches:
       - main
