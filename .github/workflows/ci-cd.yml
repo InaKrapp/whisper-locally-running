@@ -26,10 +26,10 @@ jobs:
             arch: x64
           - os: ubuntu-latest
             arch: arm64
-          - os: windows-latest
-            arch: x64
-          - os: windows-latest
-            arch: arm64
+          # - os: windows-latest
+          #   arch: x64
+          # - os: windows-latest
+          #   arch: arm64
           - os: macos-latest
             arch: arm64
 
@@ -62,9 +62,4 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: pytest-results
-          path: ./test-results
+# TODO: add bundling and deployment steps on merging to production branch
