@@ -10,6 +10,8 @@ def app(qtbot):
         qtbot.addWidget(window)
         return window
 
-def test_app_starts(hello):
+def test_app_starts(app):
     """Test to ensure the application starts and the main window is visible."""
-    assert hello.isVisible(), "Main window is not visible after startup."
+    assert app.isVisible(), "Main window is not visible after startup."
+
+# TODO: add additional tests for the GUI elements
