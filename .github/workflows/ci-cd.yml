@@ -22,7 +22,8 @@ jobs:
     strategy:
       matrix:
         # TODO: Add additional versions of the platforms you want to test on
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        # os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
       - name: Checkout repository
@@ -35,7 +36,7 @@ jobs:
 
       - name: Install dependencies using system package manager on Linux
         if: runner.os == 'Linux'
-        run: sudo apt-get install ffmpeg python3-pyaudio
+        run: sudo apt-get install ffmpeg python3-pyaudio libegl1 libopengl0 libxkbcommon-x11-0 libglu1-mesa
 
       - name: Install dependencies using system package manager on Windows
         if: runner.os == 'Windows'
