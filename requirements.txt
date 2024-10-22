@@ -26,7 +26,7 @@ packaging==24.1
 pefile==2024.8.26
 pluggy==1.5.0
 protobuf==5.28.2
-PyAudio==0.2.14; platform_system == "Windows" or platform_system == "Darwin"
+PyAudio==0.2.14 #; platform_system == "Windows" or platform_system == "Darwin"
 pydub==0.25.1
 pyinstaller==6.10.0
 pyinstaller-hooks-contrib==2024.8
