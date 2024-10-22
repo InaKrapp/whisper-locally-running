@@ -70,14 +70,15 @@ jobs:
           name: pytest-results
           path: ./test-results
 
-  # check_results:
-  #   needs: test  # Ensure this step waits for all 'test' jobs
-  #   runs-on: ubuntu-latest  # You can choose the platform
-  #   steps:
-  #     - name: Check previous jobs' results
-  #       run: |
-  #         if [ "${{ job.status }}" != "success" ]; then
-  #           echo "Some jobs have failed"
-  #           exit 1
-  #         fi
+  check_results:
+    needs: test
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Check previous jobs' results
+        run: |
+          if [ "${{ job.status }}" != "success" ]; then
+            echo "Some jobs have failed"
+            exit 1
+          fi
+
 # TODO: add bundling and deployment steps on merging to production branch
