@@ -43,7 +43,8 @@ sympy==1.13.3
 tbb==2021.13.0; platform_system == "Linux" or platform_system == "Windows"
 tokenizers==0.20.0
 torch==2.2.2; platform_system == "Darwin"
-torch==2.4.1; platform_system == "Linux" or platform_system == "Windows"
+torch==2.3.1; platform_system == "Linux"
+torch==2.4.1; platform_system == "Windows"
 tqdm==4.66.4
 typing_extensions==4.12.2
 urllib3==2.2.3
