@@ -12,7 +12,7 @@ The program works with language-specific folders when it stores the sound files:
 ## Getting Started
 
 ### Running the program as python file
-Download the 'Wisp.py', 'lang.py' and 'requirements.txt' files and save them in the same folder on your computer (or clone the entire respository). The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store them there, but it can be anywhere.
+Download the repository on your computer (or clone it). The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store it there, but it can be anywhere.
 Use the windows powershell to navigate to this folder. For the folder 'Sound recordings', you can do this with the following code.
   ```sh
 cd "Documents/Sound recordings"
