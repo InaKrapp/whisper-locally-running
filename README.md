@@ -45,7 +45,7 @@ Once the file has started to run, the GUI (graphical user interface) should open
 
 Wisp is designed with the idea in mind to have a program that can be used with a graphical user interface by non-programmers. 
 With pyinstaller, it can easily be turned into an .exe-file that can be opened by clicking on it. Once you have pyinstaller installed, be sure to activate the virtual environment if you have not done that already.
-Then, to create the .exe-file, run the followig code:
+Then, to create the .exe-file, run the following code:
   ```sh
 pyinstaller Wisp.py --onefile
  ```
