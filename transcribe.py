@@ -2,6 +2,7 @@ import torch
 from pydub import AudioSegment
 from faster_whisper import WhisperModel
 from huggingface_hub import snapshot_download # Assuming you are using the Whisper library for transcription
+import os
 
 def transcribe_audio(filename, translation=False, accuracy=5, device="cpu"):
     """
@@ -24,9 +25,10 @@ def transcribe_audio(filename, translation=False, accuracy=5, device="cpu"):
     elif accuracy == 4:
         model_size = "large-v3"
     elif accuracy == 5:
-        repo_id = "deepdml/faster-whisper-large-v3-turbo-ct2"
-        local_dir = "faster-whisper-large-v3-turbo-ct2"
-        snapshot_download(repo_id=repo_id, local_dir=local_dir, repo_type="model")
+        local_dir = "faster-whisper-large-v3-turbo-ct2" 
+        if not os.path.exists(local_dir): # If not downloaded yet, download faster whisper turbo model.
+            repo_id = "deepdml/faster-whisper-large-v3-turbo-ct2"
+            snapshot_download(repo_id=repo_id, local_dir=local_dir, repo_type="model")
         model_size = "faster-whisper-large-v3-turbo-ct2"
 
     # Use float16 if the computer supports it
