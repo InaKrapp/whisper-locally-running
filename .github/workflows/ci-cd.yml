@@ -1,0 +1,63 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  PYTHON_VERSION: 3.11.9 # Github runner does not support Python 3.11.10 for Macos yet
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }} with ${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          # TODO: Add more OS versions such as windows-2019, ubuntu-20.04, macos-11.0 etc.
+          - os: ubuntu-latest
+            arch: x64
+          - os: ubuntu-latest
+            arch: arm64
+          - os: windows-latest
+            arch: x64
+          - os: windows-latest
+            arch: arm64
+          - os: macos-latest
+            arch: arm64
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }} on ${{ matrix.arch }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies using system package manager on Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3-pyaudio libegl1 libopengl0 libxkbcommon-x11-0 libglu1-mesa libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0 libxcb-cursor0
+
+      - name: Install dependencies using system package manager on Windows
+        if: runner.os == 'Windows'
+        run: choco install ffmpeg
+
+      - name: Install dependencies using system package manager on macOS
+        if: runner.os == 'macOS'
+        run: brew install ffmpeg portaudio
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest
+
+# TODO: add bundling and deployment on merging to production branch
