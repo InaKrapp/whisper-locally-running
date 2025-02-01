@@ -43,7 +43,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg libjack-jackd2-dev libegl1 libopengl0 libxkbcommon-x11-0 libglu1-mesa libasound2-dev portaudio19-dev libportaudio2 libportaudiocpp0 libxcb-cursor0
-          
+          sudo apt-get install -y x11-utils libxkbcommon-x11-0 libxcb-randr0-dev libxcb-xtest0-dev libxcb-xinerama0-dev libxcb-shape0-dev libxcb-xkb-dev libxcb-render-util0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0
       - name: Install dependencies using system package manager on Windows
         if: runner.os == 'Windows'
         run: choco install ffmpeg
