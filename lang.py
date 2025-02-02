@@ -60,11 +60,7 @@ TEXT_EN = {
     "No_sound_text": "Whisper did not recognize any words. Perhaps the background noise in the recording was too strong, or you selected a recording in which nobody said anything.",
     "Transcription_message_1": "Transcription has been completed. \n The file ",
     "Transcription_message_2":" contains the text and can be opened with any text editor (e.g. an Office program). It can be found in the same folder as the audio file.",
-    "Transcription_error": "Unfortunately, an error has occured: "
-
-
-
-    
+    "Transcription_error": "Unfortunately, an error has occured: "    
 }
 
 TEXT_DE = {
@@ -103,7 +99,7 @@ TEXT_DE = {
     "Setting_turbo": "Einstellung: Schnell und präzise, experimentell",
     "Transcription_setting":"Wahl der Präzision und Geschwindigkeit",
     "Text_transcription_setting":"Wie präzise soll die Übersetzung sein? Genauere Übersetzungen benötigen mehr Zeit.",
-    "No": "Nein",
+    "No": 'Nein',
     "Yes": "Ja",
     "Text_Translation_setting":   "Soll der Text übersetzt werden?",
     "Translation_setting": "Textübersetzung:",
