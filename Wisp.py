@@ -38,20 +38,12 @@ class TranscriptionWorker(QThread):
                 return
 
             # Perform the transcription
-            transcribed_text = transcribe_audio(filename, self.translation, self.accuracy, self.device)
+            transcribe_audio(self)
 
-            # Save the transcribed text
-            try:
-                with open(f'{self.filename_path.stem}.txt', 'w') as f:
-                    f.write(transcribed_text)
-                self.transcription_complete.emit((tx("Transcription_message_1"), self.filename_path.stem, tx("Transcription_message_2")))
-            except Exception as e:
-                self.error_occurred.emit(tx("File_operation_error") + str(e))
         except ValueError as e:
             self.error_occurred.emit(tx("No_sound_text"))
         except Exception as e:
             self.error_occurred.emit(tx("Transcription_error") + str(e))
-            #pass
 
 class MainWindow(QWidget):
     def __init__(self, *args, **kwargs):
@@ -97,6 +89,7 @@ class MainWindow(QWidget):
         # Create a button that allows to choose if the audio should be translated
         translation_button = QPushButton(tx("Translation_selection"))
         translation_button.clicked.connect(self.choose_translation)
+        
         self.translation_edit = QLineEdit()
         self.translation_edit.setText(tx("Default_translation"))
         self.translation_edit.setReadOnly(True)
@@ -260,7 +253,6 @@ class MainWindow(QWidget):
         self.transcription_edit.setText(f"{message_1}'{file_stem}.txt'{message_2}")
 
     def _handle_transcription_error(self, error_message):
-        #self.transcription_edit.setText(f"{tx('Transcription_error')}{error_message}")
         self.transcription_edit.setText(f"{error_message}")
 
     def _transcription_finished(self):
@@ -271,6 +263,8 @@ class MainWindow(QWidget):
 
 def main():
     app = QApplication(sys.argv)
+    # Increase font size
+    app.setStyleSheet('* { font-size: 12pt;}')
     window = MainWindow()
     sys.exit(app.exec())
 
