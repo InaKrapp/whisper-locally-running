@@ -98,11 +98,11 @@ class MainWindow(QWidget):
         layout.addWidget(self.transcription_button, 12, 0)
         layout.addWidget(self.transcription_edit, 13, 0)
 
+        # Add the progress bar:
+        layout.addWidget(self.progress_bar, 14, 0)
+
         # Add the button to close the program
-        layout.addWidget(close_button, 14, 0)
-
-        layout.addWidget(self.progress_bar, 15, 0)
-
+        layout.addWidget(close_button, 15, 0)
 
         # Show the window
         self.show()
@@ -155,7 +155,7 @@ class MainWindow(QWidget):
             self,
             tx("Choose_file"),
             str(filepath),
-            "Audio (*.wav *.mp3 *.m4a *.flac)"
+            "Audio (*.wav *.mp3 *.m4a *.flac *.mp4)"
         )
 
         filename = filenametuple[0]
