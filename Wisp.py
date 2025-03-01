@@ -2,48 +2,11 @@ import sys
 import os
 import torch
 from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QTextEdit, QLabel, QPushButton, QGridLayout, QFileDialog, QInputDialog, QMessageBox)
-from PyQt6.QtCore import QStandardPaths, QThread, pyqtSignal
+from PyQt6.QtCore import QStandardPaths
 from pathlib import Path
 from lang import get_text as tx
 from audio import Recorder
-from transcribe import transcribe_audio
-
-class TranscriptionWorker(QThread):
-    transcription_complete = pyqtSignal(tuple)
-    error_occurred = pyqtSignal(str)
-
-    def __init__(self, filename_path, translation, accuracy, device):
-        super().__init__()
-        self.filename_path = filename_path
-        self.translation = translation
-        self.accuracy = accuracy
-        self.device = device
-
-    def run(self):
-        try:
-            if not self.filename_path:
-                raise Exception(tx("No_file_selected"))
-
-            # Set the current working directory to where the file is located
-            os.chdir(self.filename_path.parent)
-            filename = self.filename_path.name
-
-            # Check if the file exists and is not empty
-            if not os.path.exists(filename):
-                raise Exception(tx("File_not_found"))
-
-            filesize = Path(filename).stat().st_size
-            if filesize == 0:
-                self.error_occurred.emit(tx("No_sound_found"))
-                return
-
-            # Perform the transcription
-            transcribe_audio(self)
-
-        except ValueError as e:
-            self.error_occurred.emit(tx("No_sound_text"))
-        except Exception as e:
-            self.error_occurred.emit(tx("Transcription_error") + str(e))
+from transcribe import TranscriptionWorker
 
 class MainWindow(QWidget):
     def __init__(self, *args, **kwargs):
@@ -227,6 +190,7 @@ class MainWindow(QWidget):
                 self.translation_edit.setText(tx("No"))
 
     def transcription_message(self):
+        """ A message to be displayed once the transcription started, to show the user that the program works as intended."""
         self.transcription_edit.setText(tx("Transcription_started"))
 
     def start_transcription(self):
