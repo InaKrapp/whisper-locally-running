@@ -1,7 +1,8 @@
 import sys
 import os
 import torch
-from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QTextEdit, QLabel, QPushButton, QGridLayout, QFileDialog, QInputDialog, QMessageBox)
+import math
+from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QTextEdit, QLabel, QPushButton, QGridLayout, QFileDialog, QInputDialog, QMessageBox, QProgressBar)
 from PyQt6.QtCore import QStandardPaths
 from pathlib import Path
 from lang import get_text as tx
@@ -30,6 +31,9 @@ class MainWindow(QWidget):
         self.recording_edit = QTextEdit()
         self.recording_edit.setText(tx("Voice_recording_not_yet_started"))
         self.recording_edit.setReadOnly(True)
+
+        # Initialize progress bar:
+        self.progress_bar = QProgressBar()
 
         # File browser button and field
         file_browse = QPushButton(tx('Select_a_file'))
@@ -93,7 +97,11 @@ class MainWindow(QWidget):
         # Add the button to start the transcription process
         layout.addWidget(self.transcription_button, 12, 0)
         layout.addWidget(self.transcription_edit, 13, 0)
+
+        # Add the button to close the program
         layout.addWidget(close_button, 14, 0)
+
+        layout.addWidget(self.progress_bar, 15, 0)
 
 
         # Show the window
@@ -207,10 +215,24 @@ class MainWindow(QWidget):
     def _start_transcription_worker(self):
         # Create a new worker thread for the transcription
         self.worker = TranscriptionWorker(self.filename_path, self.translation, self.accuracy, "cuda:0" if torch.cuda.is_available() else "cpu")
+        # Give the progressbar the length of the whole audio:
+        self.worker.initialize_progressbar.connect(self._initialize_progressbar)
+        # Tell the progressbar to which length the audio is already transcribed:
+        self.worker.update_progressbar.connect(self._update_progressbar)
+        # Send a message to the user if the transcription is finished.
         self.worker.transcription_complete.connect(self._update_transcription_result)
+        # Send another message to the user if some error occured.
         self.worker.error_occurred.connect(self._handle_transcription_error)
+        # Modify the user interface so the user can start the next transcription
         self.worker.finished.connect(self._transcription_finished)
         self.worker.start()
+
+    def _initialize_progressbar(self, total):
+        self.progress_bar.setRange(0, round(total))
+    
+    def _update_progressbar(self, segment_end):
+        print("Segment end:", segment_end)
+        self.progress_bar.setValue(math.ceil(segment_end))
 
     def _update_transcription_result(self, message_parts):
         message_1, file_stem, message_2 = message_parts

@@ -10,6 +10,8 @@ from pathlib import Path
 class TranscriptionWorker(QThread):
     transcription_complete = pyqtSignal(tuple)
     error_occurred = pyqtSignal(str)
+    initialize_progressbar = pyqtSignal(float)
+    update_progressbar = pyqtSignal(float)
 
     def __init__(self, filename_path, translation, accuracy, device):
         super().__init__()
@@ -90,8 +92,18 @@ def transcribe_audio(self):
     segments, info = model.transcribe(filename, beam_size=5, task=task)
     try:# Save the transcribed text - should I move this to the transcribe function?
         with open(f'{self.filename_path.stem}.txt', 'w', encoding="utf-8") as f:
-            for segment in segments:
+            #total = len(list(segments))
+            print("Info:", info.duration)
+            total = info.duration
+            self.initialize_progressbar.emit(total)
+            # Set that as max value.
+            for i, segment in enumerate(segments):
                 f.write(segment.text)
+                print("Transcribed segment:", i)
+                # Set that as current value with each iteration:
+                print(segment.end)
+                print(type(segment.end))
+                self.update_progressbar.emit(segment.end)
         self.transcription_complete.emit((tx("Transcription_message_1"), self.filename_path.stem, tx("Transcription_message_2")))
     except Exception as e:
         self.error_occurred.emit(tx("Transcription_error") + str(e))
