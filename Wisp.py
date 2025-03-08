@@ -2,12 +2,14 @@ import sys
 import os
 import torch
 import math
-from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QTextEdit, QLabel, QPushButton, QGridLayout, QFileDialog, QInputDialog, QMessageBox, QProgressBar)
+from PyQt6.QtWidgets import (QApplication, QWidget, QLineEdit, QTextEdit, QCheckBox, QLabel, QPushButton, QGridLayout, QFileDialog, QInputDialog, QMessageBox, QProgressBar)
 from PyQt6.QtCore import QStandardPaths
 from pathlib import Path
 from lang import get_text as tx
 from audio import Recorder
 from transcribe import TranscriptionWorker
+
+# This is a modified version which allows diarization.
 
 class MainWindow(QWidget):
     def __init__(self, *args, **kwargs):
@@ -41,9 +43,10 @@ class MainWindow(QWidget):
         self.filename_edit = QLineEdit()
         self.filename_edit.setReadOnly(True)
 
-        # Accuracy and Translation
+        # Accuracy, translation and diarization default values:
         self.accuracy = 5
         self.translation = 0
+        self.diarization = 0
 
         # Create a button that allows to choose accuracy.
         accuracy_button = QPushButton(tx('Select_speed_and_accuracy'))
@@ -53,13 +56,13 @@ class MainWindow(QWidget):
         self.accuracy_edit.setText(tx("Default_precision"))
         self.accuracy_edit.setReadOnly(True)
         
-        # Create a button that allows to choose if the audio should be translated
-        translation_button = QPushButton(tx("Translation_selection"))
-        translation_button.clicked.connect(self.choose_translation)
-        
-        self.translation_edit = QLineEdit()
-        self.translation_edit.setText(tx("Default_translation"))
-        self.translation_edit.setReadOnly(True)
+        # Create a checkbox that allows to choose if the audio should be translated and if speakers should be recognized
+        self.translatecheckbox = QCheckBox(tx("Translation_setting"))
+        self.translatecheckbox.setChecked(False)
+        self.translatecheckbox.stateChanged.connect(self.choose_translation)
+        self.speakercheckbox = QCheckBox(tx("Diarization_setting"))
+        self.speakercheckbox.setChecked(False)
+        self.speakercheckbox.stateChanged.connect(self.choose_diarization)
 
         # Transcription button
         self.transcription_edit = QTextEdit()
@@ -91,8 +94,8 @@ class MainWindow(QWidget):
         # Add the other two buttons to define accuracy and translation
         layout.addWidget(accuracy_button, 8, 0)
         layout.addWidget(self.accuracy_edit, 9, 0)
-        layout.addWidget(translation_button, 10, 0)
-        layout.addWidget(self.translation_edit, 11, 0)
+        layout.addWidget(self.speakercheckbox, 10, 0)
+        layout.addWidget(self.translatecheckbox, 11, 0)
 
         # Add the button to start the transcription process
         layout.addWidget(self.transcription_button, 12, 0)
@@ -154,7 +157,7 @@ class MainWindow(QWidget):
         filenametuple = QFileDialog.getOpenFileName(
             self,
             tx("Choose_file"),
-            str(filepath),
+            str(filepath), # Check - Whisper should be able to use mp4 automatically.
             "Audio (*.wav *.mp3 *.m4a *.flac *.mp4)"
         )
 
@@ -185,17 +188,19 @@ class MainWindow(QWidget):
                 self.accuracy = 5
                 self.accuracy_edit.setText(tx("Setting_turbo"))
 
-    def choose_translation(self):
-        # Existing code remains unchanged
-        items = [tx("No"), tx("Yes")]
-        item, ok = QInputDialog.getItem(self, tx("Translation_setting"), tx("Text_Translation_setting"), items, 0, False)
-        if ok and item:
-            if item == tx("Yes"):
-                self.translation = 1
-                self.translation_edit.setText(tx("Yes"))
-            else:
-                self.translation = 0
-                self.translation_edit.setText(tx("No"))
+    def choose_translation(self, state):
+        """Select if text should be translated to english. Default is state 0, means no translation to english."""
+        if state == 0:
+            self.translation = 0
+        else:
+            self.translation = 1
+    
+    def choose_diarization(self, state):
+        """Select if speakers should be recognized. Default is state 0, means no speaker recognition."""
+        if state == 0:
+            self.diarization = 0
+        else:
+            self.diarization = 1
 
     def transcription_message(self):
         """ A message to be displayed once the transcription started, to show the user that the program works as intended."""
@@ -214,7 +219,7 @@ class MainWindow(QWidget):
 
     def _start_transcription_worker(self):
         # Create a new worker thread for the transcription
-        self.worker = TranscriptionWorker(self.filename_path, self.translation, self.accuracy, "cuda:0" if torch.cuda.is_available() else "cpu")
+        self.worker = TranscriptionWorker(self.filename_path, self.translation, self.diarization, self.accuracy, "cuda:0" if torch.cuda.is_available() else "cpu")
         # Give the progressbar the length of the whole audio:
         self.worker.initialize_progressbar.connect(self._initialize_progressbar)
         # Tell the progressbar to which length the audio is already transcribed:
