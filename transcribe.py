@@ -112,7 +112,6 @@ def transcribe_audio(self):
         snapshot_download(repo_id=repo_id, local_dir=local_dir, repo_type="model")
         model = whisperx.load_model(model_size, self.device, compute_type="float32")
 
-
     audio = whisperx.load_audio(filename)
     result = model.transcribe(audio, task = task)
     
