@@ -10,6 +10,9 @@ Wisps user interface is in English as default. But it automatically recogizes th
 The program works with language-specific folders when it stores the sound files: The English version will expect the voice recordings to be in a folder named 'Sound recordings', the German version expects the folder to be named 'Soundaufnahmen' instead. It will not fail if the recordings are not there, but the user will have to navigate to a different folder manually if they store their recordings in another directory. 
 
 ## Getting Started
+### Running the program as .exe file
+Wisp is now available as a single .exe file for download: [Download Wisp here.](https://github.com/InaKrapp/whisper_locally_light/releases/tag/1.0.0)
+Once downloaded, it can be started by simply clicking on the file. The currently released version does not include speaker recognition yet.
 
 ### Running the program as python file
 Download the repository on your computer (or clone it). The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store it there, but it can be anywhere.
