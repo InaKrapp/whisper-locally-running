@@ -3,7 +3,7 @@
 This is Wisp, a program I created to use OpenAIs Whisper model for speech-to-text-transcription. It runs locally. It includes a simple GUI and a basic recording functionality.
 Here are pictures of how the GUI looks like before, during and after turning an audio file into text:
 
-<img src="/pictures/picture1.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="270" height="387"> <img src="/pictures/picture3.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="270" height="387"> <img src="/pictures/picture4.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="270" height="387">
+<img src="/pictures/picture1.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="265" height="387"> <img src="/pictures/picture3.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="265" height="387"> <img src="/pictures/picture4.png" alt="The GUI allows the user to record something, choose a recorded audio file to turn it into text, specifiy accuracy and if a translation to english should be done." width="265" height="387">
 
 Wisps user interface is in English as default. But it automatically recogizes the PC language and will show a German userface if the user is in Germany, Austria or another German-speaking region. Further translations can be easily added by modifying the lang.py-document. 
 
@@ -13,6 +13,7 @@ The program works with language-specific folders when it stores the sound files:
 ### Running the program as .exe file
 Wisp is now available as a single .exe file for download: [Download Wisp here.](https://github.com/InaKrapp/whisper_locally_light/releases/tag/1.0.0)
 Once downloaded, it can be started by simply clicking on the file. The currently released version does not include speaker recognition yet.
+Please note that the exe-version is still in an early experimental stage and may not work as expected. It is also likely to be treated as malware by antivirus programs. People who wish to try Wisp out currently may find it easier to run the program in python.
 
 ### Running the program as python file
 Download the repository on your computer (or clone it). The system is primarily designed with the use of the 'Sound recordings' (in German: 'Soundaufnahmen') folder in mind, so I suggest you store it there, but it can be anywhere.
