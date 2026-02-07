@@ -43,7 +43,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg libjack-jackd2-dev libegl1 libopengl0 libxkbcommon-x11-0 libglu1-mesa libasound2-dev portaudio19-dev libportaudio2 libportaudiocpp0 libxcb-cursor0 python3-pyaudio 
-          
+          sudo apt-get install -y xvfb
+
       - name: Install dependencies using system package manager on Windows
         if: runner.os == 'Windows'
         run: choco install ffmpeg
@@ -57,7 +58,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests
+      - name: Run tests on Windows or MacOS
+        if: ${{ runner.os == 'Windows' || runner.os == 'macOS' }}
         run: pytest
+        
+      - name: Run tests on Linux with on xvfb  
+        if: runner.os == 'Linux'
+        run: xvfb-run -a pytest
 
 # TODO: add bundling and deployment on merging to production branch
